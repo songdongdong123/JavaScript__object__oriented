@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/style.css" rel="stylesheet">-->
+    <style>
+      div{
+        width:100px;
+        height:200px;
+        margin-top:20px;
+      }
+      p{
+        width:100px;
+        height:200px;
+        margin-top:20px;
+      }
+      .className{
+        background: #f94 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div></div>
+    <div class="div2"></div>
+    <div id="div3"></div>
+    <p></p>
+    <p></p>
+    <script>
+      // 一、面向对象的基本用法，和jquery的基本实现方式
+      // 1.需求：给div设置背景颜色
+      // 面向过程的基本做法
+      // 1.获取元素，2.设置样式（简单来看并没有什么不妥，但是我们现在又要给别的元素设置样式呢，那么是不是代码就会重复？）
+      // 下面我们使用面向过程的方式实现一遍
+      var divs = document.querySelectorAll('div')
+       for (var i = 0; i < divs.length; i++) {
+         divs[i].style.backgroundColor = 'pink'
+       }
+      //  思考：那我们现在还要将所有的p元素的背景颜色做设置呢？是不是又要重新复制一遍上面的代码？
+
+      // 二、为了不重复上面的代码，对于初学者我们第一个也许会想到，函数的封装（其实函数的封装就是面向对象的启蒙）下面我们使用函数的封装来实现一遍上面的需求
+      // 获取元素的函数
+      var getEles = function (element) {
+        return document.querySelectorAll(element)
+      }
+      // 设置样式的函数
+      var setStyle = function (eles, color) {
+        for (var i = 0; i < eles.length; i++) {
+          eles[i].style.backgroundColor = color
+        }
+      }
+      // 现在我们先对所有的div元素设置背景颜色
+      setStyle(getEles('div'), '#333')
+      // 现在我们再对所有的p元素设置背景样式
+      setStyle(getEles('p'), '#0f4')
+
+      // 思考：加入我现在只要更改其中某一个元素的背景样式呢，显然我们封装的园区元素的函数就不有点不适用了，怎么办呢，在封装一个函数？其实是可行的
+      // 但是有一个问题就是，获取dom元素的方式有很多种，哪我们就要封装很多方法，然而这里有一个问题，就是全局变量污染问题
+      // 那为了解决这个问题，我们可以将所有的方法封装到一个统一的对象里面
+      var jquery = {
+        // 这里是获取元素模块
+        getEles: {
+          selectAll: function (eles) {
+            return document.querySelectorAll(eles)
+          },
+          selectId: function (id) {
+            return document.getElementById(id)
+          },
+          selectClass: function (className) {
+            return document.getElementsByClassName(className)
+          }
+        },
+        // 这里是设置样式的模块
+        setStyle: {
+          setBgColor: function (eles, color) {
+            if (eles.length) {
+              for (var i = 0; i < eles.length; i++) {
+                eles[i].style.background = color
+              }
+            } else {
+              eles.style.backgroundColor = color
+            }
+          },
+          setClass: function (eles, className) {
+            for (var i = 0; i < eles.length; i++) {
+              eles[i].className = className
+            }
+          }
+        }
+      }
+      // 设置全部div的背景颜色
+      jquery.setStyle.setBgColor(jquery.getEles.selectAll('div'), 'red')
+      // 设置全部p的背景颜色
+      jquery.setStyle.setBgColor(jquery.getEles.selectAll('p'), 'yellow')
+      // 根据id设置背景
+      jquery.setStyle.setBgColor(jquery.getEles.selectId('div3'), 'blue')
+      // 根据className设置样式
+      jquery.setStyle.setClass(jquery.getEles.selectClass('div2'), 'className')
+    </script>
+  </body>
+</html>

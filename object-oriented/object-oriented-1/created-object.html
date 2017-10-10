@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/style.css" rel="stylesheet">-->
+  </head>
+  <body>
+  <script>
+    // 创建对象的第一种方式（使用构造函数创建对象）
+    var personOne = function (obj) {
+      this.name = obj.name
+      this.age = obj.age
+      this.hello = () => {
+        return `我是${this.name}，我今年${this.age}`
+      }
+    }
+    var son = new personOne({
+      name: 'ethan',
+      age: 18
+    })
+    console.log(son.hello())
+    console.log(son)
+
+    // 创建对象的第二钟方式（使用字面值创建对象）
+    // var _this = this
+    var personTwo = {
+      name: 'ethans',
+      age: 55,
+      demo: function () {
+        console.log(this)
+      },
+      hello: () => {
+        console.log(this)
+      }
+    }
+    personTwo.demo()
+    personTwo.hello()
+  </script>
+  </body>
+</html>
