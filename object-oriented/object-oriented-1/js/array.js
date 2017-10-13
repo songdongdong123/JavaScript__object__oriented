@@ -11,14 +11,17 @@
 // console.log(arr1)
 
 // 2.copyWithin() 从数组的指定位置拷贝元素到另一个指定位置 (返回调整位置后的新数组，并且原数组被改变)
-
+// 第一个参数代表复制到指定目标位置
+// 第二个参数代表复制的起始位置
 // var arr = [1,2,3]
-// var t = arr.copyWithin(0,2)
+// var t = arr.copyWithin(2,0)
 // console.log(t)
 // console.log(arr) 
 
 
-// 3.every(function)  检测数值元素的每一个元素是否都符合条件,接收一个函数作为参数
+// 3.every(function)  检测数值元素的每一个元素是否都符合条件,接收一个函数作为参数 (不会改变原始数组)
+// 只要有一个不满足就会返回false,剩余元素不会检测
+// 所有元素都满足条件，则会返回false
 
 // var arr = [1,2,3]
 // var test = (age) => {
@@ -27,6 +30,32 @@
 // }
 // var suc = arr.every(test)
 // console.log(suc)
+
+
+// 3.1 some(function) 方法用于检测数组中的元素是否满足指定条件（函数提供）。
+// some() 方法会依次执行数组的每个元素：
+// 如果有一个元素满足条件，则表达式返回true , 剩余的元素不会再执行检测。
+// 如果没有满足条件的元素，则返回false。
+
+/**
+ *  some()和every()和find()区别：
+ *    1.every()检测的时候，只要检测到一个不满足条件的元素，就会返回false,后面的元素不再进行检测
+ *    2.some() 检测的时候，只有有一个元素，满足条件，就会返回true,后面的元素将不再进行检测
+ *    3.find() 检测的时候，当表达式返回true的时候，find()会返回满足条件的第一个元素，如果没有找到会返回undefined
+ *    4.filter() 检测的时候，会返回所有满足条件的所有元素，（以数组的形式返回）
+ *  some()和every()共同点：
+ *    1.对于空数组，都不会进行检测
+ *    2.都不会改变原数组
+ * */ 
+
+
+// 4.1 filter() 方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。
+// var  arr = [1,2,3,4]
+// var x = arr.filter((age) => {
+//   return age > 2
+// })
+// console.log(x)
+// console.log(arr)
 
 
 // 4.fill(arg)  使用一个固定值来填充数组 （会将原数组中的所有元素替换成指定值）  返回一个新的数组，并且原数组被改变
@@ -40,7 +69,7 @@
 
 // var arr = [1,2,3]
 // var test1 = (age) => {
-//   return age > 2
+//   return age > 0
 // }
 // var test2 = (age) => {
 //   return age > 3
@@ -141,9 +170,9 @@
 // (2).接收一个函数，作为排序的条件
 
 // var arr = [3,4,25,2]
-// // 升序
-// var x = arr.sort((a,b) => {return a-b})
-// // 降序
+// // // 升序
+// // var x = arr.sort((a,b) => {return a-b})
+// // // 降序
 // var x = arr.sort((a,b) => {return b-a})
 // console.log(x)
 // console.log(arr) 
@@ -157,10 +186,133 @@
 // console.log(x)
 // console.log(arr)
 
-// (2).两个参数的时候表示要截取元素的范围 (第一个参数表示开始，第二个参数表示结束，注意：如果结束的参数大于开始的参数，返回一个空数组)
+// (2).两个参数的时候表示要截取元素的范围 (第一个参数表示开始，第二个参数表示结束，注意：如果结束的参数大于开始的参数，返回一个空数组) 不改变原始数组
 // var arr = [1,2,3,4,5]
 // var x = arr.slice(0,2)
 // console.log(x)
 // console.log(arr)
 
 
+// 19.splice() 从数组中添加或者删除元素 (原数组会被改变)
+
+// var arr = [1,2,3,4]
+// var x = arr.splice(0,1,3,4)
+// console.log(x) // 返回被删除的元素（以数组的形式返回）
+// console.log(arr) // 原数组被改变了
+
+
+
+// 20.toString() 将数组转化为字符串，并返回结果 (不改变原数组)
+// var arr = [1,2,3,4]
+// var x = arr.toString()
+// console.log(x) // 返回转换后的结果
+// console.log(arr) // 原数组不被改变
+
+
+// 22.valueOf() // 不改变原数组
+// var arr = [1,2,3,4]
+// var x = arr.valueOf()
+// console.log(x) // 返回数组的原始值
+// console.log(arr) 
+
+
+//23.reduce() 将数组元素计算为一个值（从左到右），接收一个处理数组元素的函数作为参数
+// 不改变原数组
+
+// var arr = [1,2,3,4]
+// var x = arr.reduce((total, num) => {
+//   // total 表示计算的初始值
+//   // num 表示当前元素
+//   console.log(total, num)
+//   return total + num
+// })
+// console.log(x)
+// console.log(arr)
+
+// 24.reduceRight() 将数组元素计算为一个值（从右到左）接收一个处理数组元素的函数作为参数
+// 不改变原数组
+
+// var arr = [1,2,3,4]
+// var x = arr.reduceRight((total, num) => {
+//   // total 表示计算的初始值
+//   // num 表示当前元素
+//   console.log(total, num)
+//   return total + num
+// })
+// console.log(x)
+
+
+// 26.join() 将数组转换为数组，不改变原数组
+
+// var arr = [1,2,3,4]
+// var x = arr.join()
+// console.log(x)
+// console.log(arr)
+
+
+/**
+ *  改变原始数组的操作：
+ *  1.unshift()
+ *  2.push()
+ *  3.shift()
+ *  4.pop()
+ *  5.fill() 
+ *  6.reverse()
+ *  7.sort()
+ *  8.slice()
+ *  9.splice()
+ *  10copyWithin()
+ *  数组属性的分类总结：
+ * 
+ * 一：元素检测：(不改变原数组)
+ *  1.find()
+ *  2.every()
+ *  3.some()
+ *  4.filter()
+ * 
+ * 二：元素查找：(不改变原始数组)
+ *  1.indexOf()
+ *  2.lastIindexOf()
+ * 
+ * 三：元素操作：
+ *  增加：(改变原始数组)
+ *    1.unshift() (从头添加)
+ *    2.push()    (从尾添加)
+ *  删除：(改变原始数组)
+ *    1.shift()   (从头删除)
+ *    2.pop()     (从尾删除)
+ *  计算：(接收一个函数作为计算方式，最终返回结算的结果) (不改变原始数组)
+ *    1.reduce() 
+ *    2.reduceRight()
+ *  填充：(改变原始数组)
+ *    1.fill()
+ * 
+ * 四：遍历元素：
+ *   1.forEach()
+ *   2.map()
+ * 
+ * 
+ * 五：数组排序：(改变原始数组)
+ *  1.reverse()
+ *  2.sort()
+ * 
+ * 
+ * 六：数组转字符串：(不改变原始数组)
+ *  1.join()
+ *  2.toString()
+ * 
+ * 
+ * 七：截取数组元素：(改变原始数组)
+ *  1.slice()
+ * 
+ * 八：数组的添加/删除 (改变原始数组)
+ *  1.splice()
+ * 
+ * 
+ * 九：数组的连接 (不改变原始数组)
+ *  1.concat()
+ * 
+ * 
+ * 十：拷贝指定元素到指定位置
+ *  1.copyWithin()(改变原始数组)
+ * */ 
